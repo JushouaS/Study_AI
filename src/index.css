@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply font-sans;
+  }
+
+  /* CSS Variables — Dark Mode (default) */
+  :root {
+    --color-bg: #080810;
+    --color-card: #12121f;
+    --color-text: #e8e8f0;
+    --color-text-muted: #6b6b8a;
+    --color-mint: #63dcb4;
+    --color-purple: #7c6af7;
+    --color-border: #1e1e2e;
+  }
+
+  /* CSS Variables — Light Mode */
+  .light {
+    --color-bg: #ffffff;
+    --color-card: #f5f5f5;
+    --color-text: #0f0f10;
+    --color-text-muted: #6b6b6b;
+    --color-mint: #0ea5a0;
+    --color-purple: #7c6af7;
+    --color-border: #e5e5e5;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded bg-zinc-300 dark:bg-zinc-700;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-400 dark:bg-zinc-600;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-color: rgb(161 161 170 / 1) transparent;
+    scrollbar-width: thin;
+  }
+
+  .dark * {
+    scrollbar-color: rgb(63 63 70 / 1) transparent;
+  }
+}
+
+/* Material Symbols font setup */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Keyframe Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 220, 180, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(99, 220, 180, 0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@layer utilities {
+  .animate-fadeUp {
+    @apply animate-[fadeUp_0.5s_ease-out_both];
+  }
+
+  .animate-fadeIn {
+    @apply animate-[fadeIn_0.4s_ease-out_both];
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s infinite;
+  }
+
+  /* Themed utility classes using CSS variables */
+  .bg-bg { background-color: var(--color-bg); }
+  .bg-card { background-color: var(--color-card); }
+  .text-text { color: var(--color-text); }
+  .text-text-muted { color: var(--color-text-muted); }
+  .text-mint { color: var(--color-mint); }
+  .text-purple { color: var(--color-purple); }
+  .bg-mint { background-color: var(--color-mint); }
+  .bg-purple { background-color: var(--color-purple); }
+  .border-mint { border-color: var(--color-mint); }
+  .border-purple { border-color: var(--color-purple); }
+
+  /* Gradient using CSS vars */
+  .bg-gradient-mint-purple {
+    background: linear-gradient(135deg, var(--color-mint), var(--color-purple));
+  }
+}
