@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run build",   // only needed if Vercel can't auto-detect
+  "outputDirectory": "dist",         // critical — could be "build" for CRA, "dist" for Vite
+  "framework": "vite",               // helps Vercel auto-configure correctly
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
