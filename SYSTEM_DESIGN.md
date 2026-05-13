@@ -1,66 +1,132 @@
-# System Design
+# 🏗️ System Design
 
-## Architecture Overview
+> This document describes the architecture, database schema, security model, and API flow of StudyAI.
 
-StudyAI is a single-page application (SPA) built with React and Vite. It communicates directly with:
+---
 
-1. **Supabase** – Authentication and PostgreSQL database
-2. **Groq API** – AI model inference (Llama 3.3 70B)
+## 🧩 Architecture Overview
+
+StudyAI is a **Single-Page Application (SPA)** built with React and Vite. It communicates directly with two external services — no custom backend server is needed.
 
 ```
-┌─────────────┐     ┌──────────────┐     ┌─────────────┐
-│   Client    │────▶│   Supabase   │     │   Groq API  │
-│  (React)    │◀────│  (Auth + DB) │     │  (AI Chat)  │
-└─────────────┘     └──────────────┘     └─────────────┘
+┌──────────────────────────────────────────────────────┐
+│                    Client (React)                    │
+│              Vite + TypeScript + Tailwind            │
+└───────────────┬──────────────────────┬───────────────┘
+                │                      │
+                ▼                      ▼
+   ┌────────────────────┐   ┌──────────────────────┐
+   │      Supabase      │   │      Groq API        │
+   │  Auth + PostgreSQL │   │  Llama 3.3 70B (LLM) │
+   └────────────────────┘   └──────────────────────┘
 ```
 
-## Database Schema
+| Service | Responsibility |
+|---|---|
+| **React + Vite** | UI rendering, routing, state management |
+| **Supabase Auth** | User sign-up, login, email verification |
+| **Supabase PostgreSQL** | Persistent storage of sessions and messages |
+| **Groq API** | AI model inference (Llama 3.3 70B) |
 
-### Tables
+---
 
-#### `chat_sessions`
+## 🗄️ Database Schema
+
+### Table: `chat_sessions`
+
+Stores each user's study sessions.
+
 | Column | Type | Constraints |
-|--------|------|-------------|
-| id | uuid | PK, default gen_random_uuid() |
-| user_id | uuid | FK → auth.users(id), not null |
-| title | text | not null |
-| created_at | timestamptz | default now() |
+|---|---|---|
+| `id` | `uuid` | Primary Key, `default gen_random_uuid()` |
+| `user_id` | `uuid` | Foreign Key → `auth.users(id)`, Not Null |
+| `title` | `text` | Not Null |
+| `created_at` | `timestamptz` | `default now()` |
 
-#### `messages`
+---
+
+### Table: `messages`
+
+Stores individual messages within a session.
+
 | Column | Type | Constraints |
-|--------|------|-------------|
-| id | uuid | PK, default gen_random_uuid() |
-| session_id | uuid | FK → chat_sessions(id), not null |
-| role | text | not null (user / assistant) |
-| content | text | not null |
-| created_at | timestamptz | default now() |
+|---|---|---|
+| `id` | `uuid` | Primary Key, `default gen_random_uuid()` |
+| `session_id` | `uuid` | Foreign Key → `chat_sessions(id)`, Not Null |
+| `role` | `text` | Not Null — `user` or `assistant` |
+| `content` | `text` | Not Null |
+| `created_at` | `timestamptz` | `default now()` |
+
+---
 
 ### Relationships
 
 ```
-auth.users ||--o{ chat_sessions : owns
-chat_sessions ||--o{ messages : contains
+auth.users
+    │
+    │ 1 : many
+    ▼
+chat_sessions
+    │
+    │ 1 : many
+    ▼
+messages
 ```
 
-## Row Level Security (RLS) Policies
+- One **user** can have many **chat sessions**
+- One **chat session** can have many **messages**
+
+---
+
+## 🔒 Row Level Security (RLS)
+
+All tables have RLS enabled. Users can **only access their own data**.
 
 ### `chat_sessions`
-- **Select**: `auth.uid() = user_id`
-- **Insert**: `auth.uid() = user_id`
-- **Delete**: `auth.uid() = user_id`
+
+| Policy | Rule |
+|---|---|
+| `SELECT` | `auth.uid() = user_id` |
+| `INSERT` | `auth.uid() = user_id` |
+| `DELETE` | `auth.uid() = user_id` |
 
 ### `messages`
-- **Select**: Exists select on chat_sessions where `auth.uid() = user_id` and `session_id = chat_sessions.id`
-- **Insert**: Same as above
-- **Delete**: Same as above
 
-These policies ensure users can only access their own chat sessions and messages.
+| Policy | Rule |
+|---|---|
+| `SELECT` | Session exists where `auth.uid() = user_id` AND `session_id = chat_sessions.id` |
+| `INSERT` | Same as SELECT |
+| `DELETE` | Same as SELECT |
 
-## API Flow
+> ✅ These policies ensure complete data isolation — no user can read, write, or delete another user's sessions or messages.
 
-1. User sends a message
-2. Frontend creates a `chat_sessions` row if none exists
-3. Frontend inserts the user message into `messages`
-4. Frontend sends the full conversation to Groq API
-5. Groq returns the AI response
-6. Frontend inserts the assistant message into `messages`
+---
+
+## 🔄 API Flow
+
+The following describes the full lifecycle of a single message exchange:
+
+```
+User types message
+        │
+        ▼
+1. Check if session exists
+   └─ No → Create new row in chat_sessions
+        │
+        ▼
+2. Insert user message into messages table
+        │
+        ▼
+3. Send full conversation history to Groq API
+        │
+        ▼
+4. Groq returns AI response (Llama 3.3 70B)
+        │
+        ▼
+5. Insert assistant response into messages table
+        │
+        ▼
+6. Render updated chat in UI
+```
+
+> The full conversation history is sent to Groq on every request to maintain context across the session.
