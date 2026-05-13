@@ -1,44 +1,77 @@
-# Team Contribution
+# 👥 Team Contribution
 
-## Project: StudyAI
+> This document outlines the roles and contributions of each team member in the development of StudyAI.
 
-This project was developed as a **solo project**.
+---
 
-### Contributions
+## 📋 Project: StudyAI
 
-| Member | Role | Contributions |
-|--------|------|---------------|
-| Solo Developer | Full-Stack Developer | Architecture, UI/UX, frontend implementation, Supabase integration, AI API integration, documentation |
+| Member | Role | Responsibility |
+|---|---|---|
+| **Jushoua Oswald G. Santos** | Full-Stack Developer & Team Lead | Architecture, core implementation, AI integration, database design, DevOps, documentation |
+| Ong, Lorenz Althea | Frontend Developer | UI component support |
+| Tolentino, David Ysrael | AI Support | Prompt research assistance |
+| Seguis, Jelord | Backend Support | Database setup assistance |
+| Yañez, Carmina Ylessa | Frontend Developer | Styling support |
+| Yañez, Sabriel Anne | UI/UX | Design input and layout suggestions |
 
-### Areas of Work
+---
 
-1. **Frontend Development**
-   - Built all React components (`Auth.tsx`, `Chat.tsx`, `NotFound.tsx`, `AuthCallback.tsx`)
-   - Implemented responsive design with Tailwind CSS
-   - Created reusable components (`ConfirmModal.tsx`, `SessionSkeleton.tsx`)
-   - Set up React Router for SPA navigation
+## 🏆 Lead Developer — Jushoua Oswald G. Santos
 
-2. **Backend & Database**
-   - Configured Supabase project
-   - Designed database schema (`chat_sessions`, `messages`)
-   - Implemented Row Level Security (RLS) policies
-   - Integrated Supabase Auth with email confirmation
+The majority of the project was designed, built, and documented by the team lead. Below is a full breakdown of contributions:
 
-3. **AI Integration**
-   - Integrated Groq API (Llama 3.3 70B)
-   - Engineered system prompts for three modes (Chat, Quiz, Summarize)
-   - Implemented error handling for API failures
+### 1. 🖥️ Frontend Development
+- Built all core React components — `Auth.tsx`, `Chat.tsx`, `NotFound.tsx`, `AuthCallback.tsx`
+- Implemented fully responsive design using Tailwind CSS
+- Created reusable components — `ConfirmModal.tsx`, `SessionSkeleton.tsx`, `ErrorBoundary.tsx`
+- Set up React Router DOM for SPA navigation and route handling
 
-4. **DevOps & Tooling**
-   - Configured Vite build pipeline
-   - Set up environment variable management
-   - Created deployment-ready build
+### 2. 🗄️ Backend & Database
+- Configured and managed the Supabase project
+- Designed the full database schema (`chat_sessions`, `messages` tables)
+- Implemented Row Level Security (RLS) policies for data isolation
+- Integrated Supabase Auth with email confirmation and callback handling
 
-5. **Documentation**
-   - Wrote README.md with setup instructions
-   - Created all project documentation files
-   - Documented system design and AI component architecture
+### 3. 🤖 AI Integration
+- Integrated the Groq API with the Llama 3.3 70B model
+- Engineered all three system prompts — Chat, Quiz, and Note Summarizer modes
+- Implemented robust error handling for API failures (401, 429, 500, network errors)
 
-### Time Investment
+### 4. ⚙️ DevOps & Tooling
+- Configured the Vite build pipeline with TypeScript and Tailwind
+- Managed environment variables and `.env` setup
+- Configured `vercel.json` and deployed the production build to Vercel
 
-Approximately 40+ hours across planning, development, testing, and documentation.
+### 5. 📄 Documentation
+- Wrote the full `README.md` with setup and deployment instructions
+- Authored all project documentation files
+- Documented system design, AI architecture, and development process
+
+---
+
+## 🤝 Supporting Members
+
+| Member | Area | Contribution |
+|---|---|---|
+| Ong, Lorenz Althea | Frontend | Assisted with UI component implementation and layout adjustments |
+| Tolentino, David Ysrael | AI | Helped research prompt engineering approaches for quiz and summarizer modes |
+| Seguis, Jelord | Backend | Assisted with initial Supabase table setup and migration testing |
+| Yañez, Carmina Ylessa | Frontend | Contributed to styling and Tailwind class adjustments |
+| Yañez, Sabriel Anne | UI/UX | Provided design input on layout, color scheme, and mobile responsiveness |
+
+---
+
+## ⏱️ Time Investment
+
+**Total estimated time: 40+ hours**
+
+| Phase | Estimated Time |
+|---|---|
+| Planning & Architecture | ~4 hrs |
+| Authentication & Database | ~8 hrs |
+| Core Chat & AI Integration | ~10 hrs |
+| UI/UX & Responsive Design | ~8 hrs |
+| Advanced Features | ~6 hrs |
+| Testing & Debugging | ~4 hrs |
+| Documentation | ~4 hrs |
