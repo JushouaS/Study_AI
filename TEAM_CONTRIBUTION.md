@@ -1,64 +1,95 @@
 # 👥 Team Contribution
 
-> This document outlines the roles and contributions of each team member in the development of StudyAI.
+> StudyAI was developed as a team project for Computer Engineering students.
+> This document outlines each member's role, responsibilities, and contributions throughout the development lifecycle.
 
 ---
 
-## 📋 Project: StudyAI
+## 📋 Team Overview
 
-| Member | Role | Responsibility |
+| Member | Role | Primary Area |
 |---|---|---|
-| **Jushoua Oswald G. Santos** | Full-Stack Developer & Team Lead | Architecture, core implementation, AI integration, database design, DevOps, documentation |
-| Ong, Lorenz Althea | Frontend Developer | UI component support |
-| Tolentino, David Ysrael | AI Support | Prompt research assistance |
-| Seguis, Jelord | Backend Support | Database setup assistance |
-| Yañez, Carmina Ylessa | Frontend Developer | Styling support |
-| Yañez, Sabriel Anne | UI/UX | Design input and layout suggestions |
+| **Jushoua Oswald G. Santos** |  Full-Stack Developer & Team Lead | Architecture · AI · Database · DevOps · Docs |
+| Ong, Lorenz Althea | Frontend Developer | UI Components |
+| Tolentino, David Ysrael | AI Support | Prompt Research |
+| Seguis, Jelord | Backend Support | Database Setup |
+| Yañez, Carmina Ylessa | Frontend Developer | Styling |
+| Yañez, Sabriel Anne | UI/UX Designer | Design & Layout |
 
 ---
 
 ## 🏆 Lead Developer — Jushoua Oswald G. Santos
 
-The majority of the project was designed, built, and documented by the team lead. Below is a full breakdown of contributions:
+The architecture, core implementation, and documentation of StudyAI was primarily driven by the team lead. Below is a complete breakdown of all contributions:
+
+---
 
 ### 1. 🖥️ Frontend Development
-- Built all core React components — `Auth.tsx`, `Chat.tsx`, `NotFound.tsx`, `AuthCallback.tsx`
-- Implemented fully responsive design using Tailwind CSS
+
+> Built the entire user-facing application from scratch.
+
+- Developed all core React components — `Auth.tsx`, `Chat.tsx`, `NotFound.tsx`, `AuthCallback.tsx`
+- Implemented fully responsive design using Tailwind CSS for desktop and mobile
 - Created reusable components — `ConfirmModal.tsx`, `SessionSkeleton.tsx`, `ErrorBoundary.tsx`
-- Set up React Router DOM for SPA navigation and route handling
+- Configured React Router DOM for SPA navigation, protected routes, and 404 handling
+
+---
 
 ### 2. 🗄️ Backend & Database
-- Configured and managed the Supabase project
-- Designed the full database schema (`chat_sessions`, `messages` tables)
-- Implemented Row Level Security (RLS) policies for data isolation
-- Integrated Supabase Auth with email confirmation and callback handling
+
+> Designed and secured the full data layer using Supabase.
+
+- Configured and managed the Supabase project from scratch
+- Designed the complete database schema — `chat_sessions` and `messages` tables
+- Implemented Row Level Security (RLS) policies to ensure strict per-user data isolation
+- Integrated Supabase Auth with email/password login and email confirmation callback
+
+---
 
 ### 3. 🤖 AI Integration
-- Integrated the Groq API with the Llama 3.3 70B model
-- Engineered all three system prompts — Chat, Quiz, and Note Summarizer modes
-- Implemented robust error handling for API failures (401, 429, 500, network errors)
+
+> Integrated and fine-tuned the AI model powering all three study modes.
+
+- Connected the Groq API using the Llama 3.3 70B model for fast AI inference
+- Engineered all three system prompts — **Chat**, **Quiz**, and **Note Summarizer** modes
+- Built the full message history pipeline to maintain conversation context across sessions
+- Implemented robust error handling for API failures — `401`, `429`, `500`, and network timeouts
+
+---
 
 ### 4. ⚙️ DevOps & Tooling
-- Configured the Vite build pipeline with TypeScript and Tailwind
-- Managed environment variables and `.env` setup
-- Configured `vercel.json` and deployed the production build to Vercel
+
+> Managed the build pipeline and production deployment.
+
+- Configured the Vite build pipeline with TypeScript, Tailwind CSS, and path aliases
+- Managed environment variables via `.env` and Vercel environment settings
+- Authored `vercel.json` with SPA rewrite rules for correct client-side routing
+- Deployed and maintained the production build on Vercel
+
+---
 
 ### 5. 📄 Documentation
-- Wrote the full `README.md` with setup and deployment instructions
-- Authored all project documentation files
-- Documented system design, AI architecture, and development process
+
+> Authored all project documentation end-to-end.
+
+- Wrote `README.md` with full setup, environment, and deployment instructions
+- Created `PROJECT_OVERVIEW.md`, `SYSTEM_DESIGN.md`, `AI_COMPONENT_EXPLANATION.md`
+- Wrote `DEVELOPMENT_PROCESS.md` covering all build phases and technical challenges
+- Authored this `TEAM_CONTRIBUTION.md` file
 
 ---
 
 ## 🤝 Supporting Members
 
+Each team member provided focused assistance in their respective areas during the development process.
+
 | Member | Area | Contribution |
 |---|---|---|
-| Ong, Lorenz Althea | Frontend | Assisted with UI component implementation and layout adjustments |
-| Tolentino, David Ysrael | AI | Helped research prompt engineering approaches for quiz and summarizer modes |
-| Seguis, Jelord | Backend | Assisted with initial Supabase table setup and migration testing |
-| Yañez, Carmina Ylessa | Frontend | Contributed to styling and Tailwind class adjustments |
-| Yañez, Sabriel Anne | UI/UX | Provided design input on layout, color scheme, and mobile responsiveness |
+| **Ong, Lorenz Althea** | Frontend | Assisted with UI component implementation and layout adjustments |
+| **Tolentino, David Ysrael** | AI | Helped research prompt engineering approaches for Quiz and Summarizer modes |
+| **Seguis, Jelord** | Backend | Assisted with initial Supabase table setup and migration testing |
+| **Yañez, Carmina Ylessa** | Frontend | Contributed to styling refinements and Tailwind class adjustments |
+| **Yañez, Sabriel Anne** | UI/UX | Provided design input on layout, color scheme, and mobile responsiveness |
 
 ---
 
@@ -66,12 +97,17 @@ The majority of the project was designed, built, and documented by the team lead
 
 **Total estimated time: 40+ hours**
 
-| Phase | Estimated Time |
-|---|---|
-| Planning & Architecture | ~4 hrs |
-| Authentication & Database | ~8 hrs |
-| Core Chat & AI Integration | ~10 hrs |
-| UI/UX & Responsive Design | ~8 hrs |
-| Advanced Features | ~6 hrs |
-| Testing & Debugging | ~4 hrs |
-| Documentation | ~4 hrs |
+| Phase | Lead | Team Support | Estimated Time |
+|---|---|---|---|
+| Planning & Architecture | Jushoua | All members | ~4 hrs |
+| Authentication & Database | Jushoua | Seguis | ~8 hrs |
+| Core Chat & AI Integration | Jushoua | Tolentino | ~10 hrs |
+| UI/UX & Responsive Design | Jushoua | Ong, Yañez C., Yañez S. | ~8 hrs |
+| Advanced Features | Jushoua | — | ~6 hrs |
+| Testing & Debugging | Jushoua | All members | ~4 hrs |
+| Documentation | Jushoua | — | ~4 hrs |
+| **Total** | | | **~44 hrs** |
+
+---
+
+> 💡 *This project was a valuable hands-on experience in full-stack development, AI integration, and production deployment for the entire team.*
